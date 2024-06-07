@@ -1,31 +1,23 @@
-use std::fmt::Debug;
-
-struct Rect {
-    width: u32,
-    height: u32,
+enum Shape {
+    Circle(f64),
+    Square(f64),
+    Rectangle(f64, f64),
 }
 
-impl Rect {
-    fn area(&self) -> u32 {
-        self.width * self.height
+fn calculate_area(shape: Shape) -> f64 {
+    match shape {
+        Shape::Circle(radius) => std::f64::consts::PI * radius * radius,
+        Shape::Square(length) => length * length,
+        Shape::Rectangle(width, length) => width * length,
     }
-    
-    fn perimeter(&self) -> u32 {
-        2 * (self.width * self.height)
-    }
-
-    // fn fmt (&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-    //     write!(f, "The rectangle prints like this {}.", self.width * self.height)
-    // }
 }
 
 fn main() {
-    let rect = Rect {
-        width: 30,
-        height: 50,
-    };
-    
-    println!("The area of the rectangle is {}", rect.area());
-    println!("The perimeter of the rectangle is {}", rect.perimeter());
-    // println!("{:?}", rect);
+    let circle = Shape::Circle(5.0);
+    let square = Shape::Square(4.0);
+    let rectangle = Shape::Rectangle(3.0, 6.0);
+
+    println!("Area of circle: {}", calculate_area(circle));
+    println!("Area of circle: {}", calculate_area(square));
+    println!("Area of circle: {}", calculate_area(rectangle));
 }
