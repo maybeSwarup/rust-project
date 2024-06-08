@@ -1,23 +1,21 @@
-enum Shape {
-    Circle(f64),
-    Square(f64),
-    Rectangle(f64, f64),
-}
-
-fn calculate_area(shape: Shape) -> f64 {
-    match shape {
-        Shape::Circle(radius) => std::f64::consts::PI * radius * radius,
-        Shape::Square(length) => length * length,
-        Shape::Rectangle(width, length) => width * length,
-    }
-}
+use std::fs;
 
 fn main() {
-    let circle = Shape::Circle(5.0);
-    let square = Shape::Square(4.0);
-    let rectangle = Shape::Rectangle(3.0, 6.0);
+    let res = read_from_file_unsafe("example.txt".to_string());
 
-    println!("Area of circle: {}", calculate_area(circle));
-    println!("Area of circle: {}", calculate_area(square));
-    println!("Area of circle: {}", calculate_area(rectangle));
+    let result_string = match res {
+        Ok(result) => result,
+        Err(error) => error,
+    };
+    println!("file content: {}", result_string);
+}
+
+fn read_from_file_unsafe(file_path: String) -> Result<String, String> {
+    let res = fs::read_to_string(file_path);
+
+    if let Ok(content) = res {
+        return Ok(content);
+    } else {
+        return Err("Error reading file".to_string());
+    }
 }
