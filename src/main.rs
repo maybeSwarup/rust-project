@@ -1,21 +1,18 @@
-use std::fs;
-
-fn main() {
-    let res = read_from_file_unsafe("example.txt".to_string());
-
-    let result_string = match res {
-        Ok(result) => result,
-        Err(error) => error,
-    };
-    println!("file content: {}", result_string);
+fn find_first_a(s: String) -> Option<usize> {
+    for (index, char) in s.chars().enumerate() {
+        if char == 'a' {
+            return Some(index);
+        }
+    }
+    return None
 }
 
-fn read_from_file_unsafe(file_path: String) -> Result<String, String> {
-    let res = fs::read_to_string(file_path);
+fn main() {
+    let my_string = String::from("remun");
+    let res = find_first_a(my_string);
 
-    if let Ok(content) = res {
-        return Ok(content);
-    } else {
-        return Err("Error reading file".to_string());
+    match res {
+        Some(index) => println!("The letter 'a' is found at index: {}", index),
+        None => println!("The letter 'a' is not foudn in the string."),
     }
 }
