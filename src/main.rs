@@ -1,7 +1,12 @@
-use rand::{Rng, thread_rng};
+use chrono::{Local, Utc};
 
 fn main() {
-    let mut rng = thread_rng();
-    let n: u32 = rng.gen();
-    println!("random number: {}", n);
+    let now = Utc::now();
+    println!("Current date and time in UTC: {}", now);
+
+    let formatted = now.format("%Y-%m-%d%H:%M:%S");
+    println!("Formatted date and time: {}", formatted);
+
+    let local = Local::now();
+    println!("Current date and time in local: {}", local);
 }
